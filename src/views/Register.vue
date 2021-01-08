@@ -12,15 +12,18 @@
                         <v-text-field v-model="lname" label="Last Name" required></v-text-field>
                         <v-text-field v-model="phone" label="Phone Number" required></v-text-field>
                         <v-text-field v-model="email" label="E-mail" required></v-text-field>
-                        <v-btn class="mr-4" type="submit" :disabled="invalid">
-                            submit
+                        <v-btn class="mr-4" type="submit" :disabled="invalid" @click="submit">
+                            Register
                         </v-btn>
                         <v-btn @click="clear">
-                            clear
+                            Clear
                         </v-btn>
                     </form>
                 </v-card-text>
             </v-card>
+            <v-btn class="mt-10" color="success" @click="$router.push({ path: '/login' })">
+                Back to Login
+            </v-btn>
         </v-col>
     </v-row>
 </template>
@@ -29,7 +32,7 @@
 export default {
     data(){
         return {
-            invalid: true,
+            invalid: false,
             uname: '',
             fname: '',
             lname: '',
@@ -38,6 +41,9 @@ export default {
         }
     },
     methods: {
+        submit(){
+
+        },
         clear(){
             this.uname = ''
             this.fname = ''
