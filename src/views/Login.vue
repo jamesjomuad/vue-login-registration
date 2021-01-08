@@ -61,11 +61,10 @@ export default {
 
             if(this.username=="demo" && this.password=="demo"){
                 this.loading = true; 
-                window.setInterval(() => { 
+                window.setTimeout(() => { 
                     this.loading = false;
                     this.$router.push('dashboard')
                 }, 2000)
-                
             }
             else{
                 this.error = true;
