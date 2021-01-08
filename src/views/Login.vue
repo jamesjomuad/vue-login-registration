@@ -1,29 +1,35 @@
 <template>
-    <v-row class="mt-n12">
-        <v-col cols="12" sm="4">
+    <v-row class="mt-15">
+        <v-col cols="12" sm="3">
 
         </v-col>
-        <v-col cols="12" sm="4">
-            <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field v-model="username" :counter="10" label="Username" required></v-text-field>
-                <v-text-field v-model="password" label="Password" required></v-text-field>
-                <v-btn :disabled="!valid" color="dark" class="mr-4" @click="login">Login</v-btn>
-            </v-form>
-            <br>
+        <v-col cols="12" sm="6">
+
+            <v-card elevation="2" class="mt-16" :loading="loading">
+                <v-card-title>
+                    <h1>Login</h1>
+                </v-card-title>
+                <v-card-text>
+                    <v-form ref="form" v-model="valid" lazy-validation background-color="light-blue">
+                        <v-text-field v-model="username" :counter="10" label="Username" required></v-text-field>
+                        <v-text-field v-model="password" label="Password" required></v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions class="mx-6">
+                    <v-btn large block :disabled="!valid" color="success" class="m-10 mb-6" @click="login" :loading="loading">Login</v-btn>
+                </v-card-actions>
+            </v-card>
+
             <br>
             <v-alert v-show="error" color="red" dark transition="fade-transition">
                 {{errorMessage}}
             </v-alert>
-            <br>
-            <br>
-            <p class="mt-15">
-                user: Freddy22 <br>
+            <p class="mt-8">
+                user: demo <br>
                 pass: demo
             </p>
-
-            
         </v-col>
-        <v-col cols="12" sm="4">
+        <v-col cols="12" sm="3">
 
         </v-col>
     </v-row>
@@ -33,6 +39,7 @@
 export default {
     data(){
         return {
+            loading: false,
             valid: false,
             username: null,
             password: null,
@@ -50,12 +57,19 @@ export default {
     },
     methods: {
         login (){
-            if(this.username=="Freddy22" && this.password=="demo"){
-                this.$router.push('dashboard')
+            // var self = this;
+
+            if(this.username=="demo" && this.password=="demo"){
+                this.loading = true; 
+                window.setInterval(() => { 
+                    this.loading = false;
+                    this.$router.push('dashboard')
+                }, 2000)
+                
             }
             else{
                 this.error = true;
-                window.setInterval(() => { this.error = false; }, 3000)   
+                window.setInterval(() => { this.error = false; }, 3000)
             }
 
         },
