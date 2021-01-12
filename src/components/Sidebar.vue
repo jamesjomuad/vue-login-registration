@@ -34,32 +34,44 @@
                 <v-icon>mdi-electron-framework</v-icon> &nbsp; {{pageTitle}}
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
-                <v-icon>mdi-refresh</v-icon>
+            <v-btn icon @click="logout()" :loading="loading">
+                <v-icon>mdi-logout</v-icon>
             </v-btn>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </v-app-bar>
     </div>
 </template>
 
 <script>
-  export default {
+
+export default {
     data () {
       return {
         pageTitle: this.$route.meta.title,
+        loading: false,
         items: [
             { title: "Inbox", icon: 'mdi-email' },
             { title: "Sent", icon: 'mdi-send' },
             { title: "Spam", icon: 'mdi-email-alert' },
             { title: "Trash", icon: 'mdi-trash-can' },
-            { title: "Logout", icon: 'mdi-logout', path: '/login'},
         ],
         right: null,
       }
     },
-    mounted(){
-        console.log(this.$route.meta.title)
+    methods:{
+        logout(){
+            this.loading = true;
+            this.$parent.logout()
+            .then(() => {
+                this.loading = false;
+            })  
+
+            // this.loading = true;
+            // window.setTimeout(() => { 
+            //     this.loading = false;
+                
+            // }, 2000)
+        }
     }
-  }
+}
 </script>
 

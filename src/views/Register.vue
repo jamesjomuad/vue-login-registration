@@ -7,12 +7,12 @@
                 </v-card-title>
                 <v-card-text>
                     <form @submit.prevent="submit">
-                        <v-text-field v-model="uname" label="Username" required></v-text-field>
-                        <v-text-field v-model="fname" label="First Name" required></v-text-field>
-                        <v-text-field v-model="lname" label="Last Name" required></v-text-field>
-                        <v-text-field v-model="phone" label="Phone Number" required></v-text-field>
-                        <v-text-field v-model="email" label="E-mail" required></v-text-field>
-                        <v-btn class="mr-4" type="submit" :disabled="invalid" @click="submit">
+                        <v-text-field v-model="form.uname" label="Username" required></v-text-field>
+                        <v-text-field v-model="form.fname" label="First Name" required></v-text-field>
+                        <v-text-field v-model="form.lname" label="Last Name" required></v-text-field>
+                        <v-text-field v-model="form.phone" label="Phone Number" required></v-text-field>
+                        <v-text-field v-model="form.email" label="E-mail" required></v-text-field>
+                        <v-btn class="mr-4" type="submit" :disabled="invalid">
                             Register
                         </v-btn>
                         <v-btn @click="clear">
@@ -29,28 +29,30 @@
 </template>
 
 <script>
+import mixin from '../plugins/mixin' 
+
 export default {
+    name: "Registration",
+    mixins: [mixin],
     data(){
         return {
             loading: false,
             invalid: false,
-            uname: '',
-            fname: '',
-            lname: '',
-            phone: '',
-            email: ''
+            form: {
+                uname: '',
+                fname: '',
+                lname: '',
+                phone: '',
+                email: ''
+            }
         }
     },
     methods: {
         submit(){
-
+            console.log(this.clearObject({name:"james jomuad"}))
         },
         clear(){
-            this.uname = ''
-            this.fname = ''
-            this.lname = ''
-            this.phone = ''
-            this.email = ''
+            this.form = {}
         }
     },
 }
