@@ -10,7 +10,7 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'Login Register'
+      title: 'Basic Auth'
     }
   }
 }

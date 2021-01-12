@@ -5,7 +5,7 @@
 		</v-col>
 		<v-col cols="12" sm="6">
 
-			<v-card elevation="2" class="mt-16" :loading="loading">
+			<v-card color="light-blue" elevation="2" class="mt-16" :loading="loading">
 				<v-card-title>
 					<h1>Login</h1>
 				</v-card-title>
@@ -16,7 +16,14 @@
 					</v-form>
 				</v-card-text>
 				<v-card-actions class="mx-6">
-					<v-btn large block :disabled="!valid" color="success" class="m-10 mb-6" @click="login" :loading="loading">Login</v-btn>
+					<v-row>
+						<v-col cols="6">
+							<v-btn large block class="m-10 mb-6" link to="/" >Back</v-btn>
+						</v-col>
+						<v-col cols="6">
+							<v-btn large block :disabled="!valid" color="success" class="m-10 mb-6" @click="login" :loading="loading">Login</v-btn>
+						</v-col>
+					</v-row>
 				</v-card-actions>
 			</v-card>
 
@@ -24,10 +31,6 @@
 			<v-alert v-show="error" color="red" dark transition="fade-transition">
 				{{errorMessage}}
 			</v-alert>
-			<p class="mt-8">
-				user: demo <br>
-				pass: demo
-			</p>
 		</v-col>
 		<v-col cols="12" sm="3">
 
@@ -61,11 +64,17 @@ export default {
 		async login (){
 			const { username, password } = this;
       
-			this.loading = true; 
-			this.$store.dispatch('login', { username, password }).then(() => {
+      this.loading = true; 
+      
+      this.$store.dispatch('login', { username, password })
+      .then(() => {
 				this.loading = false;
 				this.$router.push({name:'Dashboard'})
-			})
+      })
+      .catch((e)=>{
+		console.error(e.response);
+		this.errorMessage = e.response
+      })
 		}
 	},
 	mounted(){

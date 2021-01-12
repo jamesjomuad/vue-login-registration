@@ -7,9 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: localStorage.getItem('user-token') || '',
-    loggedIn: false,
     user: {
-      isSubscribed: false,
+      role: '',
       status: "active"
     }
   },
@@ -32,6 +31,8 @@ export default new Vuex.Store({
     AUTH_LOGOUT(state){
       localStorage.removeItem('user-token')
       state.token = ''
+      state.user.role = ''
+      state.user.active = ''
     }
   },
   actions: {
@@ -40,7 +41,7 @@ export default new Vuex.Store({
         const { data } = await axios.get('https://5ff727a0e7164b0017e1a3a0.mockapi.io/api/v1/users/1')
         commit('AUTH_SUCCESS',{ user: data })
       } catch (e) {
-        console.log("AUTH_FAILURE")
+        commit("AUTH_FAILURE")
         throw(e)
       }
     },

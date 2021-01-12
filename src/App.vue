@@ -1,12 +1,22 @@
 <template>
   <v-app>
     <v-main>
-      <div class="container">
+      <div class="container-fluid">
         <router-view/>
       </div>
     </v-main>
   </v-app>
 </template>
+
+<script>
+export default {
+  watch: {
+    '$route' (to) {
+      document.title = (to.meta.title) || 'Basic Authentication'
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
